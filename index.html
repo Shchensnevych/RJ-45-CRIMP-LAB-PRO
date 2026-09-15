@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RJ-45 Crimp Lab Pro v3.0 — Віртуальний симулятор монтажу та тестування витої пари</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="brand-wrapper">
+            <div class="brand-badge">🔌</div>
+            <div class="brand-titles">
+                <h1>RJ-45 CRIMP LAB PRO <span class="version-tag">v3.0 DUAL-END</span></h1>
+                <p>Віртуальний лабораторний симулятор прямого та перехресного (Crossover) монтажу витої пари</p>
+            </div>
+        </div>
+
+        <div class="header-tools">
+            <button class="btn-tool" id="btnSoundToggle" title="Увімкнути / вимкнути звукові ефекти">🔊 Звук: УВІМК</button>
+            <button class="btn-tool" id="btnOpenTheory" title="Відкрити довідник розпіновки та схем монтажу">📖 Довідник TIA-568</button>
+            <button class="btn-tool btn-highlight" id="btnOpenCert" title="Переглянути та експортувати акт верифікації">📜 Акт верифікації</button>
+        </div>
+    </header>
+
+    <!-- Session Control Bar -->
+    <section class="session-bar">
+        <div class="student-meta">
+            <div class="meta-field">
+                <label for="studentName">Студент:</label>
+                <input type="text" id="studentName" placeholder="Введіть ПІБ..." style="width: 220px;">
+            </div>
+            <div class="meta-field">
+                <label for="studentGroup">Група:</label>
+                <input type="text" id="studentGroup" value="1КСМ24" style="width: 95px;">
+            </div>
+        </div>
+
+        <!-- Cable Preset Selector -->
+        <div class="cable-presets-bar">
+            <span class="preset-label">Тип кабелю:</span>
+            <div class="standard-tabs" id="presetTabs">
+                <button class="tab-btn active" data-preset="straight_b" title="Прямий кабель: T568B з обох кінців">Прямий T568B (Straight)</button>
+                <button class="tab-btn" data-preset="straight_a" title="Прямий кабель: T568A з обох кінців">Прямий T568A</button>
+                <button class="tab-btn btn-cross-tab" data-preset="crossover_ba" title="Кросовер: Кінець А = T568B, Кінець Б = T568A">🔀 Кросовер (B ↔ A)</button>
+                <button class="tab-btn btn-cross-tab" data-preset="crossover_ab" title="Кросовер: Кінець А = T568A, Кінець Б = T568B">🔀 Кросовер (A ↔ B)</button>
+                <button class="tab-btn" data-preset="custom" title="Вільний монтаж обох кінців">⚙️ Вільний монтаж</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lab Mission Banner -->
+    <section class="mission-bar">
+        <div class="mission-info">
+            <span class="mission-badge" id="missionBadge">🎯 ЗАВДАННЯ 1.1</span>
+            <span class="mission-desc" id="missionDesc">
+                Змонтуйте та обтисніть прямий патч-корд за стандартом T568B (для підключення ПК ↔ Комутатор).
+            </span>
+        </div>
+        <div class="mission-actions">
+            <select id="missionSelect" class="select-mission" title="Оберіть завдання лабораторної роботи">
+                <option value="m1">Завдання 1.1: Прямий T568B (ПК ↔ Світч)</option>
+                <option value="m2">Завдання 1.2: Прямий T568A</option>
+                <option value="m3">Завдання 1.3: Кросовер T568B ↔ T568A (ПК ↔ ПК)</option>
+                <option value="m4">Завдання 1.4: Дослідження трасування та вільний монтаж</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <main class="simulator-workspace">
+        <!-- LEFT: THE WORKBENCH -->
+        <section class="panel-workbench">
+            <div class="workbench-toolbar">
+                <div class="toolbar-title">
+                    <h2 id="currentStandardTitle">Прямий кабель T568B ↔ T568B</h2>
+                    <p id="currentStandardSubtitle">Монтаж проводів у роз'єм RJ-45 (8P8C). Клікніть жилку ➔ клікніть пін, або перетягніть мишкою.</p>
+                </div>
+                <div class="toolbar-actions">
+                    <button class="btn-action" id="btnShuffle" title="Перемішати жилки в касеті">✂️ Перемішати</button>
+                    <button class="btn-action" id="btnClear" title="Очистити поточний конектор">🧹 Очистити</button>
+                    <button class="btn-action btn-hint" id="btnAutoHint" title="Розставити жилки активного кінця за стандартом">💡 Підказка</button>
+                    <button class="btn-action" id="btnAutoBoth" title="Автоматично зібрати обидва кінці кабелю">✨ Зібрати обидва</button>
+                    <button class="btn-action btn-crimp-tool" id="btnCrimp" title="Затиснути жилки ножами в поточному конекторі">
+                        🔨 ОБТИСНУТИ КОНЕКТОР (<span id="crimpCount">0</span>/8)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Interactive Container: Switches between Connector Crimp & SVG Wiremap -->
+            <div id="workbenchContainer"></div>
+        </section>
+
+        <!-- RIGHT: INDUSTRIAL LAN TESTER -->
+        <aside class="panel-tester">
+            <div class="tester-brand-block">
+                <h3>📟 Віртуальний LAN-Тестер</h3>
+                <p>Перевірка цілісності, проходження пар та розпіновки Master ↔ Remote</p>
+            </div>
+
+            <div class="tester-two-chassis">
+                <!-- Master Unit -->
+                <div class="tester-pod">
+                    <span class="pod-title">Master Unit (Кінець А)</span>
+                    <div class="led-rack">
+                        <div class="led-slot"><span class="led-num">1</span><span class="led-diode" id="m-led-1"></span></div>
+                        <div class="led-slot"><span class="led-num">2</span><span class="led-diode" id="m-led-2"></span></div>
+                        <div class="led-slot"><span class="led-num">3</span><span class="led-diode" id="m-led-3"></span></div>
+                        <div class="led-slot"><span class="led-num">4</span><span class="led-diode" id="m-led-4"></span></div>
+                        <div class="led-slot"><span class="led-num">5</span><span class="led-diode" id="m-led-5"></span></div>
+                        <div class="led-slot"><span class="led-num">6</span><span class="led-diode" id="m-led-6"></span></div>
+                        <div class="led-slot"><span class="led-num">7</span><span class="led-diode" id="m-led-7"></span></div>
+                        <div class="led-slot"><span class="led-num">8</span><span class="led-diode" id="m-led-8"></span></div>
+                    </div>
+                </div>
+
+                <!-- Remote Unit -->
+                <div class="tester-pod">
+                    <span class="pod-title">Remote Unit (Кінець Б)</span>
+                    <div class="led-rack">
+                        <div class="led-slot"><span class="led-num">1</span><span class="led-diode" id="r-led-1"></span></div>
+                        <div class="led-slot"><span class="led-num">2</span><span class="led-diode" id="r-led-2"></span></div>
+                        <div class="led-slot"><span class="led-num">3</span><span class="led-diode" id="r-led-3"></span></div>
+                        <div class="led-slot"><span class="led-num">4</span><span class="led-diode" id="r-led-4"></span></div>
+                        <div class="led-slot"><span class="led-num">5</span><span class="led-diode" id="r-led-5"></span></div>
+                        <div class="led-slot"><span class="led-num">6</span><span class="led-diode" id="r-led-6"></span></div>
+                        <div class="led-slot"><span class="led-num">7</span><span class="led-diode" id="r-led-7"></span></div>
+                        <div class="led-slot"><span class="led-num">8</span><span class="led-diode" id="r-led-8"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Screen -->
+            <div class="diagnostic-terminal">
+                <div class="term-headline" id="termStatus">Очікування обтискання обох конекторів...</div>
+                <div class="term-speed" id="termSpeed">Швидкість: Очікування сигналу</div>
+                <div class="term-feed" id="termFeed">
+                    Змонтуйте та обтисніть обидва кінці кабелю (Конектор А та Конектор Б), після чого запустіть LAN-тестер для верифікації лінку.
+                </div>
+            </div>
+
+            <button class="btn-trigger-test" id="btnRunTest" disabled>⚡ ТЕСТУВАТИ ЛІНК (LAN TEST)</button>
+        </aside>
+    </main>
+
+    <!-- Modal: Theory & Visual Diagrams -->
+    <div class="modal-overlay" id="theoryModal">
+        <div class="modal-card modal-card-large">
+            <div class="modal-bar">
+                <h3>📖 Довідник стандартів TIA/EIA-568 та візуальні схеми прямого/крос монтажу</h3>
+                <button class="modal-dismiss" id="btnCloseTheory">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Visual Diagrams Section (Exactly like reference picture) -->
+                <h4 style="color: var(--cyan-accent); margin-bottom: 12px; font-size: 1.05rem;">
+                    1. Візуальні схеми підключення ліній (Wiring & Crossover Diagrams)
+                </h4>
+
+                <div class="diagram-gallery-grid">
+                    <!-- Diagram 1: T568A Straight -->
+                    <div class="diagram-card">
+                        <div class="diag-title">TIA/EIA 568A Wiring (Прямий)</div>
+                        <div class="diag-canvas-box">
+                            <svg viewBox="0 0 320 180" class="diag-svg">
+                                <!-- 8 Straight wires -->
+                                <g transform="translate(10, 10)">
+                                    <line x1="20" y1="10" x2="160" y2="10" stroke="#00b050" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="14" class="svg-wire-text">1. White-Green</text>
+                                    <text x="5" y="14" class="svg-pin-num">1</text>
+
+                                    <line x1="20" y1="30" x2="160" y2="30" stroke="#00a846" stroke-width="8" />
+                                    <text x="175" y="34" class="svg-wire-text">2. Green</text>
+                                    <text x="5" y="34" class="svg-pin-num">2</text>
+
+                                    <line x1="20" y1="50" x2="160" y2="50" stroke="#ff7700" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="54" class="svg-wire-text">3. White-Orange</text>
+                                    <text x="5" y="54" class="svg-pin-num">3</text>
+
+                                    <line x1="20" y1="70" x2="160" y2="70" stroke="#0066cc" stroke-width="8" />
+                                    <text x="175" y="74" class="svg-wire-text">4. Blue</text>
+                                    <text x="5" y="74" class="svg-pin-num">4</text>
+
+                                    <line x1="20" y1="90" x2="160" y2="90" stroke="#0066cc" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="94" class="svg-wire-text">5. White-Blue</text>
+                                    <text x="5" y="94" class="svg-pin-num">5</text>
+
+                                    <line x1="20" y1="110" x2="160" y2="110" stroke="#ff6f00" stroke-width="8" />
+                                    <text x="175" y="114" class="svg-wire-text">6. Orange</text>
+                                    <text x="5" y="114" class="svg-pin-num">6</text>
+
+                                    <line x1="20" y1="130" x2="160" y2="130" stroke="#8b4513" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="134" class="svg-wire-text">7. White-Brown</text>
+                                    <text x="5" y="134" class="svg-pin-num">7</text>
+
+                                    <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="8" />
+                                    <text x="175" y="154" class="svg-wire-text">8. Brown</text>
+                                    <text x="5" y="154" class="svg-pin-num">8</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="diag-footer">Обидва кінці за стандартом T568A</div>
+                    </div>
+
+                    <!-- Diagram 2: T568A Crossed Wiring (Crossover A ↔ B) -->
+                    <div class="diagram-card">
+                        <div class="diag-title">TIA/EIA 568A Crossed Wiring (Кросовер A ↔ B)</div>
+                        <div class="diag-canvas-box">
+                            <svg viewBox="0 0 320 180" class="diag-svg">
+                                <g transform="translate(10, 10)">
+                                    <!-- Pins 1..8 Left to Right with Bezier Curves -->
+                                    <!-- 1 (WG) -> 3 -->
+                                    <path d="M 20 10 C 70 10, 110 50, 160 50" stroke="#00b050" stroke-width="6" stroke-dasharray="7,4" fill="none" />
+                                    <!-- 2 (G) -> 6 -->
+                                    <path d="M 20 30 C 70 30, 110 110, 160 110" stroke="#00a846" stroke-width="6" fill="none" />
+                                    <!-- 3 (WO) -> 1 -->
+                                    <path d="M 20 50 C 70 50, 110 10, 160 10" stroke="#ff7700" stroke-width="6" stroke-dasharray="7,4" fill="none" />
+                                    <!-- 4 (Bl) -> 4 -->
+                                    <line x1="20" y1="70" x2="160" y2="70" stroke="#0066cc" stroke-width="5" />
+                                    <!-- 5 (WBl) -> 5 -->
+                                    <line x1="20" y1="90" x2="160" y2="90" stroke="#0066cc" stroke-width="5" stroke-dasharray="7,4" />
+                                    <!-- 6 (O) -> 2 -->
+                                    <path d="M 20 110 C 70 110, 110 30, 160 30" stroke="#ff6f00" stroke-width="6" fill="none" />
+                                    <!-- 7 (WBr) -> 7 -->
+                                    <line x1="20" y1="130" x2="160" y2="130" stroke="#8b4513" stroke-width="5" stroke-dasharray="7,4" />
+                                    <!-- 8 (Br) -> 8 -->
+                                    <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="5" />
+
+                                    <!-- Left/Right pin labels -->
+                                    ${[1,2,3,4,5,6,7,8].map((n, i) => `<text x="5" y="${14 + i*20}" class="svg-pin-num">${n}</text><text x="175" y="${14 + i*20}" class="svg-pin-num">${n}</text>`).join('')}
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="diag-footer">Кінець 1: T568A ➔ Кінець 2: T568B (1↔3, 2↔6)</div>
+                    </div>
+
+                    <!-- Diagram 3: T568B Straight -->
+                    <div class="diagram-card">
+                        <div class="diag-title">TIA/EIA 568B Wiring (Прямий найпоширеніший)</div>
+                        <div class="diag-canvas-box">
+                            <svg viewBox="0 0 320 180" class="diag-svg">
+                                <g transform="translate(10, 10)">
+                                    <line x1="20" y1="10" x2="160" y2="10" stroke="#ff7700" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="14" class="svg-wire-text">1. White-Orange</text>
+                                    <text x="5" y="14" class="svg-pin-num">1</text>
+
+                                    <line x1="20" y1="30" x2="160" y2="30" stroke="#ff6f00" stroke-width="8" />
+                                    <text x="175" y="34" class="svg-wire-text">2. Orange</text>
+                                    <text x="5" y="34" class="svg-pin-num">2</text>
+
+                                    <line x1="20" y1="50" x2="160" y2="50" stroke="#00b050" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="54" class="svg-wire-text">3. White-Green</text>
+                                    <text x="5" y="54" class="svg-pin-num">3</text>
+
+                                    <line x1="20" y1="70" x2="160" y2="70" stroke="#0066cc" stroke-width="8" />
+                                    <text x="175" y="74" class="svg-wire-text">4. Blue</text>
+                                    <text x="5" y="74" class="svg-pin-num">4</text>
+
+                                    <line x1="20" y1="90" x2="160" y2="90" stroke="#0066cc" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="94" class="svg-wire-text">5. White-Blue</text>
+                                    <text x="5" y="94" class="svg-pin-num">5</text>
+
+                                    <line x1="20" y1="110" x2="160" y2="110" stroke="#00a846" stroke-width="8" />
+                                    <text x="175" y="114" class="svg-wire-text">6. Green</text>
+                                    <text x="5" y="114" class="svg-pin-num">6</text>
+
+                                    <line x1="20" y1="130" x2="160" y2="130" stroke="#8b4513" stroke-width="8" stroke-dasharray="8,5" />
+                                    <text x="175" y="134" class="svg-wire-text">7. White-Brown</text>
+                                    <text x="5" y="134" class="svg-pin-num">7</text>
+
+                                    <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="8" />
+                                    <text x="175" y="154" class="svg-wire-text">8. Brown</text>
+                                    <text x="5" y="154" class="svg-pin-num">8</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="diag-footer">Обидва кінці за стандартом T568B</div>
+                    </div>
+
+                    <!-- Diagram 4: T568B Crossed Wiring (Crossover B ↔ A) -->
+                    <div class="diagram-card">
+                        <div class="diag-title">TIA/EIA 568B Crossed Wiring (Кросовер B ↔ A)</div>
+                        <div class="diag-canvas-box">
+                            <svg viewBox="0 0 320 180" class="diag-svg">
+                                <g transform="translate(10, 10)">
+                                    <!-- 1 (WO) -> 3 -->
+                                    <path d="M 20 10 C 70 10, 110 50, 160 50" stroke="#ff7700" stroke-width="6" stroke-dasharray="7,4" fill="none" />
+                                    <!-- 2 (O) -> 6 -->
+                                    <path d="M 20 30 C 70 30, 110 110, 160 110" stroke="#ff6f00" stroke-width="6" fill="none" />
+                                    <!-- 3 (WG) -> 1 -->
+                                    <path d="M 20 50 C 70 50, 110 10, 160 10" stroke="#00b050" stroke-width="6" stroke-dasharray="7,4" fill="none" />
+                                    <!-- 4 (Bl) -> 4 -->
+                                    <line x1="20" y1="70" x2="160" y2="70" stroke="#0066cc" stroke-width="5" />
+                                    <!-- 5 (WBl) -> 5 -->
+                                    <line x1="20" y1="90" x2="160" y2="90" stroke="#0066cc" stroke-width="5" stroke-dasharray="7,4" />
+                                    <!-- 6 (G) -> 2 -->
+                                    <path d="M 20 110 C 70 110, 110 30, 160 30" stroke="#00a846" stroke-width="6" fill="none" />
+                                    <!-- 7 (WBr) -> 7 -->
+                                    <line x1="20" y1="130" x2="160" y2="130" stroke="#8b4513" stroke-width="5" stroke-dasharray="7,4" />
+                                    <!-- 8 (Br) -> 8 -->
+                                    <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="5" />
+
+                                    ${[1,2,3,4,5,6,7,8].map((n, i) => `<text x="5" y="${14 + i*20}" class="svg-pin-num">${n}</text><text x="175" y="${14 + i*20}" class="svg-pin-num">${n}</text>`).join('')}
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="diag-footer">Кінець 1: T568B ➔ Кінець 2: T568A (1↔3, 2↔6)</div>
+                    </div>
+                </div>
+
+                <!-- Theory Rules Section -->
+                <div class="theory-text-block">
+                    <h4 style="color: var(--cyan-accent); margin-bottom: 8px;">2. Де саме використовується пряма, а де кросовер обжимка?</h4>
+                    <div class="theory-comparison-box">
+                        <div class="comparison-column straight-col">
+                            <h5>🔌 Прямий кабель (Straight-Through):</h5>
+                            <p>Використовується для з'єднання <strong>різнорідних пристроїв</strong>:</p>
+                            <ul>
+                                <li>Комп'ютер ↔ Комутатор (Switch)</li>
+                                <li>Комп'ютер ↔ Маршрутизатор (Router)</li>
+                                <li>Комутатор ↔ Маршрутизатор</li>
+                            </ul>
+                            <p class="rule-hint"><em>Правило:</em> передавачі порту комп'ютера (MDI) з'єднуються з приймачами комутатора (MDI-X) у прямому порядку.</p>
+                        </div>
+
+                        <div class="comparison-column cross-col">
+                            <h5>🔀 Перехресний кабель (Crossover):</h5>
+                            <p>Використовується для з'єднання <strong>однорідних пристроїв</strong> (без підтримки Auto-MDIX):</p>
+                            <ul>
+                                <li>Комп'ютер ↔ Комп'ютер (пряма передача даних між двома ПК)</li>
+                                <li>Комутатор ↔ Комутатор (Switch ↔ Switch)</li>
+                                <li>Маршрутизатор ↔ Маршрутизатор</li>
+                            </ul>
+                            <p class="rule-hint"><em>Правило:</em> передавачі першого ПК (Tx пари 1-2) повинні прийти на приймачі другого ПК (Rx пари 3-6), і навпаки!</p>
+                        </div>
+                    </div>
+
+                    <h4 style="color: var(--cyan-accent); margin: 16px 0 8px 0;">3. Сигнали для 100BASE-TX проти 1000BASE-T (Gigabit)</h4>
+                    <p>• <strong>Fast Ethernet (100 Мбіт/с):</strong> задіює лише 2 виті пари (контакти 1-2 для Tx і 3-6 для Rx). Пари 4-5 та 7-8 не використовуються для передачі даних.<br>
+                    • <strong>Gigabit Ethernet (1000 Мбіт/с):</strong> одночасно задіює <strong>усі 4 пари</strong> у повнодуплексному режимі (Bi-directional). Помилка в будь-якій жилі скидає лінк до 100M!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Verification Passport -->
+    <div class="modal-overlay" id="certModal">
+        <div class="modal-card">
+            <div class="modal-bar">
+                <h3>📜 Акт верифікації монтажу кабельної лінії</h3>
+                <button class="modal-dismiss" id="btnCloseCert">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cert-passport" id="printableCert">
+                    <div class="cert-header">
+                        <h2>АКТ ВЕРИФІКАЦІЇ ТА ТЕСТУВАННЯ ЛІНКУ</h2>
+                        <p>Дисципліна «Комп'ютерні системи та мережі» • Лабораторна робота № 1</p>
+                    </div>
+
+                    <div class="cert-grid">
+                        <div class="cert-box">
+                            <div class="cert-box-label">Студент</div>
+                            <div class="cert-box-value" id="certStudent">—</div>
+                        </div>
+                        <div class="cert-box">
+                            <div class="cert-box-label">Група</div>
+                            <div class="cert-box-value" id="certGroup">—</div>
+                        </div>
+                        <div class="cert-box">
+                            <div class="cert-box-label">Виготовлена конфігурація кабелю</div>
+                            <div class="cert-box-value" id="certStandard">Прямий T568B ↔ T568B</div>
+                        </div>
+                        <div class="cert-box">
+                            <div class="cert-box-label">Швидкість та тип каналу</div>
+                            <div class="cert-box-value" id="certSpeed">1000 Mbps Gigabit Full Duplex</div>
+                        </div>
+                        <div class="cert-box" style="grid-column: 1 / -1;">
+                            <div class="cert-box-label">Час проведення випробування</div>
+                            <div class="cert-box-value" id="certTime">—</div>
+                        </div>
+                    </div>
+
+                    <div class="cert-seal">
+                        <div id="certSealText">✓ ЛІНК ВЕРИФІКОВАНО ТА ДОПУЩЕНО ДО ЕКСПЛУАТАЦІЇ</div>
+                        <div style="font-size: 0.78rem; margin-top: 6px;">Цифровий код захисту звіту: <span class="hash-code" id="certHash">SHA-RJ45-1000M</span></div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-tool" id="btnCopyHash" onclick="navigator.clipboard.writeText(document.getElementById('certHash').textContent); this.textContent='✓ Код скопійовано!'; setTimeout(()=>this.textContent='📋 Скопіювати код', 2000);">📋 Скопіювати код</button>
+                        <button class="btn-tool btn-highlight" onclick="window.print();">🖨️ Друк / PDF</button>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Зробіть скріншот цього вікна (<strong>Win + Shift + S</strong>) або роздрукуйте та додайте його у звіт до Завдання 1!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts in proper dependency order -->
+    <script src="audio.js"></script>
+    <script src="theory.js"></script>
+    <script src="tester.js"></script>
+    <script src="wires.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
