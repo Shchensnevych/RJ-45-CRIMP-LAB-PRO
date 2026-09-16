@@ -78,53 +78,143 @@ class WireManager {
             }
         });
 
-        // HTML5 Drag and Drop support
+        // HTML5 Drag and Drop support with generous hit detection and zero dead zones
+        let activeDraggedSlot = null;
+
+        const clearSlotHighlights = () => {
+            if (this.container) {
+                this.container.querySelectorAll('.slot-channel.drag-over').forEach(el => {
+                    el.classList.remove('drag-over');
+                });
+            }
+            activeDraggedSlot = null;
+        };
+
         this.container.addEventListener('dragstart', (e) => {
             const currentEndObj = this.ends[this.activeEnd];
             const tokenEl = e.target.closest('.wire-token');
             if (tokenEl && !currentEndObj.isCrimped) {
-                e.dataTransfer.setData('text/plain', tokenEl.dataset.wireId);
+                const wireId = tokenEl.dataset.wireId;
+                this.draggedWireId = wireId;
+                e.dataTransfer.setData('text/plain', wireId);
                 e.dataTransfer.effectAllowed = 'move';
+
+                const viewport = this.container.querySelector('.workbench-viewport');
+                if (viewport) viewport.classList.add('is-dragging-wire');
+                tokenEl.classList.add('is-being-dragged');
             }
+        });
+
+        this.container.addEventListener('dragend', () => {
+            const viewport = this.container.querySelector('.workbench-viewport');
+            if (viewport) viewport.classList.remove('is-dragging-wire');
+            this.container.querySelectorAll('.wire-token.is-being-dragged').forEach(el => {
+                el.classList.remove('is-being-dragged');
+            });
+            clearSlotHighlights();
+            this.draggedWireId = null;
         });
 
         this.container.addEventListener('dragover', (e) => {
             const currentEndObj = this.ends[this.activeEnd];
-            const slotEl = e.target.closest('.slot-channel');
-            if (slotEl && !currentEndObj.isCrimped) {
+            if (currentEndObj.isCrimped) return;
+
+            const slotEl = this.getSlotElementAt(e.clientX, e.clientY);
+            if (slotEl) {
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'move';
-            }
-        });
 
-        this.container.addEventListener('dragenter', (e) => {
-            const currentEndObj = this.ends[this.activeEnd];
-            const slotEl = e.target.closest('.slot-channel');
-            if (slotEl && !currentEndObj.isCrimped) {
-                slotEl.classList.add('drag-over');
+                if (activeDraggedSlot !== slotEl) {
+                    clearSlotHighlights();
+                    slotEl.classList.add('drag-over');
+                    activeDraggedSlot = slotEl;
+                }
+            } else {
+                if (activeDraggedSlot) {
+                    clearSlotHighlights();
+                }
             }
         });
 
         this.container.addEventListener('dragleave', (e) => {
-            const slotEl = e.target.closest('.slot-channel');
-            if (slotEl) {
-                slotEl.classList.remove('drag-over');
+            if (!this.container.contains(e.relatedTarget)) {
+                clearSlotHighlights();
             }
         });
 
         this.container.addEventListener('drop', (e) => {
             const currentEndObj = this.ends[this.activeEnd];
-            const slotEl = e.target.closest('.slot-channel');
-            if (slotEl && !currentEndObj.isCrimped) {
+            if (currentEndObj.isCrimped) return;
+
+            const slotEl = this.getSlotElementAt(e.clientX, e.clientY);
+            if (slotEl) {
                 e.preventDefault();
-                slotEl.classList.remove('drag-over');
-                const wireId = e.dataTransfer.getData('text/plain');
+                const wireId = e.dataTransfer.getData('text/plain') || this.draggedWireId;
+                clearSlotHighlights();
+                this.draggedWireId = null;
+
+                const viewport = this.container.querySelector('.workbench-viewport');
+                if (viewport) viewport.classList.remove('is-dragging-wire');
+
                 if (wireId) {
                     const idx = parseInt(slotEl.dataset.slot, 10);
                     this.placeWireInSlot(wireId, idx);
                 }
+            } else {
+                clearSlotHighlights();
+                this.draggedWireId = null;
             }
         });
+    }
+
+    /**
+     * Generous and intelligent slot hit-testing.
+     * Snaps to the closest slot even when hovering slightly above (gold pins),
+     * below (clamp), or in the gap between slots.
+     */
+    getSlotElementAt(x, y) {
+        if (!this.container) return null;
+        const slots = Array.from(this.container.querySelectorAll('.slot-channel'));
+        if (slots.length === 0) return null;
+
+        // 1. Direct hit check with vertical and horizontal safety margin
+        for (const slot of slots) {
+            const rect = slot.getBoundingClientRect();
+            if (x >= rect.left - 4 && x <= rect.right + 4 &&
+                y >= rect.top - 25 && y <= rect.bottom + 25) {
+                return slot;
+            }
+        }
+
+        // 2. Connector Chassis area check (find closest slot horizontally)
+        const chassis = this.container.querySelector('.rj45-chassis');
+        if (chassis) {
+            const firstRect = slots[0].getBoundingClientRect();
+            const lastRect = slots[slots.length - 1].getBoundingClientRect();
+
+            // Generous vertical span: from gold contacts block down to cable clamp
+            const topBound = firstRect.top - 45;
+            const bottomBound = firstRect.bottom + 40;
+            const leftBound = firstRect.left - 15;
+            const rightBound = lastRect.right + 15;
+
+            if (y >= topBound && y <= bottomBound && x >= leftBound && x <= rightBound) {
+                let closestSlot = null;
+                let minDistance = Infinity;
+                for (const slot of slots) {
+                    const rect = slot.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const dist = Math.abs(x - centerX);
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        closestSlot = slot;
+                    }
+                }
+                return closestSlot;
+            }
+        }
+
+        return null;
     }
 
     applyPreset(presetId, triggerCallback = true) {
