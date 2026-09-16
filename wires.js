@@ -499,11 +499,18 @@ class WireManager {
 
                 <!-- CONNECTOR INFO BANNER -->
                 <div class="connector-identity-banner">
-                    <span class="conn-id-title">Монтаж: <strong>${currentEndObj.label}</strong></span>
-                    <span class="conn-id-std">Цільовий стандарт: <strong>${std.name}</strong></span>
-                    <span class="conn-id-status ${currentEndObj.isCrimped ? 'crimp-yes' : 'crimp-no'}">
-                        ${currentEndObj.isCrimped ? '✓ Зафіксовано ножами' : '⏳ Очікує обтискання'}
-                    </span>
+                    <div class="conn-id-item conn-id-title" title="Активний роз'єм кабелю">
+                        <span class="conn-id-icon">🔌</span>
+                        <span class="conn-id-text">Монтаж: <strong>${currentEndObj.label}</strong></span>
+                    </div>
+                    <div class="conn-id-item conn-id-std" title="Цільовий стандарт монтажу">
+                        <span class="conn-id-icon">🎯</span>
+                        <span class="conn-id-text">Стандарт: <strong>${std.name}</strong></span>
+                    </div>
+                    <div class="conn-id-item conn-id-status ${currentEndObj.isCrimped ? 'crimp-yes' : 'crimp-no'}">
+                        <span class="conn-id-icon">${currentEndObj.isCrimped ? '✓' : '⏳'}</span>
+                        <span class="conn-id-text">${currentEndObj.isCrimped ? 'Зафіксовано ножами' : 'Очікує обтискання'}</span>
+                    </div>
                 </div>
 
                 <!-- RJ-45 CONNECTOR HOUSING -->

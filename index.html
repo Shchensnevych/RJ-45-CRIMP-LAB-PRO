@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RJ-45 Crimp Lab Pro v3.0 — Віртуальний симулятор монтажу та тестування витої пари</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
         <div class="student-meta">
             <div class="meta-field">
                 <label for="studentName">Студент:</label>
-                <input type="text" id="studentName" placeholder="Введіть ПІБ..." style="width: 220px;">
+                <input type="text" id="studentName" placeholder="Введіть ПІБ...">
             </div>
             <div class="meta-field">
                 <label for="studentGroup">Група:</label>
-                <input type="text" id="studentGroup" value="1КСМ24" style="width: 95px;">
+                <input type="text" id="studentGroup" value="1КСМ24">
             </div>
         </div>
 
@@ -231,7 +231,14 @@
                                     <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="5" />
 
                                     <!-- Left/Right pin labels -->
-                                    ${[1,2,3,4,5,6,7,8].map((n, i) => `<text x="5" y="${14 + i*20}" class="svg-pin-num">${n}</text><text x="175" y="${14 + i*20}" class="svg-pin-num">${n}</text>`).join('')}
+                                    <text x="5" y="14" class="svg-pin-num">1</text><text x="175" y="14" class="svg-pin-num">1</text>
+                                    <text x="5" y="34" class="svg-pin-num">2</text><text x="175" y="34" class="svg-pin-num">2</text>
+                                    <text x="5" y="54" class="svg-pin-num">3</text><text x="175" y="54" class="svg-pin-num">3</text>
+                                    <text x="5" y="74" class="svg-pin-num">4</text><text x="175" y="74" class="svg-pin-num">4</text>
+                                    <text x="5" y="94" class="svg-pin-num">5</text><text x="175" y="94" class="svg-pin-num">5</text>
+                                    <text x="5" y="114" class="svg-pin-num">6</text><text x="175" y="114" class="svg-pin-num">6</text>
+                                    <text x="5" y="134" class="svg-pin-num">7</text><text x="175" y="134" class="svg-pin-num">7</text>
+                                    <text x="5" y="154" class="svg-pin-num">8</text><text x="175" y="154" class="svg-pin-num">8</text>
                                 </g>
                             </svg>
                         </div>
@@ -304,7 +311,15 @@
                                     <!-- 8 (Br) -> 8 -->
                                     <line x1="20" y1="150" x2="160" y2="150" stroke="#633a2d" stroke-width="5" />
 
-                                    ${[1,2,3,4,5,6,7,8].map((n, i) => `<text x="5" y="${14 + i*20}" class="svg-pin-num">${n}</text><text x="175" y="${14 + i*20}" class="svg-pin-num">${n}</text>`).join('')}
+                                    <!-- Left/Right pin labels -->
+                                    <text x="5" y="14" class="svg-pin-num">1</text><text x="175" y="14" class="svg-pin-num">1</text>
+                                    <text x="5" y="34" class="svg-pin-num">2</text><text x="175" y="34" class="svg-pin-num">2</text>
+                                    <text x="5" y="54" class="svg-pin-num">3</text><text x="175" y="54" class="svg-pin-num">3</text>
+                                    <text x="5" y="74" class="svg-pin-num">4</text><text x="175" y="74" class="svg-pin-num">4</text>
+                                    <text x="5" y="94" class="svg-pin-num">5</text><text x="175" y="94" class="svg-pin-num">5</text>
+                                    <text x="5" y="114" class="svg-pin-num">6</text><text x="175" y="114" class="svg-pin-num">6</text>
+                                    <text x="5" y="134" class="svg-pin-num">7</text><text x="175" y="134" class="svg-pin-num">7</text>
+                                    <text x="5" y="154" class="svg-pin-num">8</text><text x="175" y="154" class="svg-pin-num">8</text>
                                 </g>
                             </svg>
                         </div>
@@ -402,10 +417,10 @@
     </div>
 
     <!-- Scripts in proper dependency order -->
-    <script src="audio.js"></script>
-    <script src="theory.js"></script>
-    <script src="tester.js"></script>
-    <script src="wires.js"></script>
-    <script src="app.js"></script>
+    <script src="audio.js?v=3.1"></script>
+    <script src="theory.js?v=3.1"></script>
+    <script src="tester.js?v=3.1"></script>
+    <script src="wires.js?v=3.1"></script>
+    <script src="app.js?v=3.1"></script>
 </body>
 </html>

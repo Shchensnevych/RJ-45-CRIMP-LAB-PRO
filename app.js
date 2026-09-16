@@ -381,3 +381,95 @@ function generateCertificate(result = null) {
         }
     }
 }
+
+// URL Capture Mode Helper for Documentation Screenshots
+const urlParams = new URLSearchParams(window.location.search);
+const shotMode = urlParams.get('shot');
+if (shotMode) {
+    setTimeout(() => {
+        const studentInput = document.getElementById('studentName');
+        const groupInput = document.getElementById('studentGroup');
+        if (studentInput) studentInput.value = 'Іваненко О.В.';
+        if (groupInput) groupInput.value = '1КСМ24';
+
+        if (shotMode === 'theory') {
+            const btn = document.getElementById('btnOpenTheory');
+            if (btn) btn.click();
+        } else if (shotMode === 'task1') {
+            const mSel = document.getElementById('missionSelect');
+            if (mSel) { mSel.value = 'm1'; mSel.dispatchEvent(new Event('change')); }
+            workbench.applyPreset('straight_b', true);
+            workbench.autoFillBothEnds();
+            workbench.ends.A.isCrimped = true;
+            workbench.ends.B.isCrimped = true;
+            workbench.render();
+            updateWorkbenchStatus(workbench.getSlotWireIds('A'), workbench.getSlotWireIds('B'));
+
+            for (let i = 1; i <= 8; i++) {
+                const m = document.getElementById('m-led-' + i);
+                const r = document.getElementById('r-led-' + i);
+                if (m) m.className = 'led-diode glow-green';
+                if (r) r.className = 'led-diode glow-green';
+            }
+            const termStatus = document.getElementById('termStatus');
+            const termSpeed = document.getElementById('termSpeed');
+            const termFeed = document.getElementById('termFeed');
+            if (termStatus) termStatus.textContent = '✓ ПАС (ЦІЛІСНІСТЬ ПІДТВЕРДЖЕНО)';
+            if (termSpeed) termSpeed.textContent = 'Швидкість: 1000 Mbps Gigabit (Full Duplex)';
+            if (termFeed) termFeed.innerHTML = '• Усі 8 ліній цілісні та спарені бездоганно.<br>• Підтримка 1000BASE-T Gigabit Ethernet.';
+        } else if (shotMode === 'cert') {
+            workbench.applyPreset('straight_b', true);
+            workbench.autoFillBothEnds();
+            workbench.ends.A.isCrimped = true;
+            workbench.ends.B.isCrimped = true;
+            generateCertificate({
+                cableType: 'Прямий патч-корд T568B ↔ T568B (Straight-Through)',
+                speedTier: '1000 Mbps Gigabit (Full Duplex)',
+                isCrossover: false
+            });
+            const certModal = document.getElementById('certModal');
+            if (certModal) certModal.classList.add('open');
+        } else if (shotMode === 'wiremap') {
+            const mSel = document.getElementById('missionSelect');
+            if (mSel) { mSel.value = 'm3'; mSel.dispatchEvent(new Event('change')); }
+            workbench.applyPreset('crossover_ba', true);
+            workbench.autoFillBothEnds();
+            workbench.ends.A.isCrimped = true;
+            workbench.ends.B.isCrimped = true;
+            workbench.currentTab = 'wiremap';
+            workbench.render();
+            updateWorkbenchStatus(workbench.getSlotWireIds('A'), workbench.getSlotWireIds('B'));
+        } else if (shotMode === 'defect') {
+            const mSel = document.getElementById('missionSelect');
+            if (mSel) { mSel.value = 'm4'; mSel.dispatchEvent(new Event('change')); }
+            workbench.applyPreset('straight_b', true);
+            workbench.autoFillBothEnds();
+            const t = workbench.ends.B.slots[3];
+            workbench.ends.B.slots[3] = workbench.ends.B.slots[4];
+            workbench.ends.B.slots[4] = t;
+            workbench.ends.A.isCrimped = true;
+            workbench.ends.B.isCrimped = true;
+            workbench.render();
+            updateWorkbenchStatus(workbench.getSlotWireIds('A'), workbench.getSlotWireIds('B'));
+
+            for (let i = 1; i <= 8; i++) {
+                const m = document.getElementById('m-led-' + i);
+                const r = document.getElementById('r-led-' + i);
+                if (m) m.className = 'led-diode glow-green';
+                if (r) {
+                    if (i === 4 || i === 5) {
+                        r.className = 'led-diode glow-red';
+                    } else {
+                        r.className = 'led-diode glow-green';
+                    }
+                }
+            }
+            const termStatus = document.getElementById('termStatus');
+            const termSpeed = document.getElementById('termSpeed');
+            const termFeed = document.getElementById('termFeed');
+            if (termStatus) termStatus.textContent = '⚠️ ПОМИЛКА РОЗПІНОВКИ / НЕВІРНА ПАРА';
+            if (termSpeed) termSpeed.textContent = 'Швидкість: 100 Mbps Fast Ethernet (Half Duplex) — Обмеження';
+            if (termFeed) termFeed.innerHTML = '• Робочі пари 1-2 та 3-6 цілісні (передача 100 Мбіт/с можлива).<br>• Допоміжна пара 4-5 пошкоджена або розщеплена (Gigabit недоступний).';
+        }
+    }, 200);
+}

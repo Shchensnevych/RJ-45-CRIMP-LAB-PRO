@@ -44,7 +44,7 @@ body {
 .app-header {
     background: #0d1527;
     border-bottom: 1px solid var(--border-subtle);
-    padding: 12px 28px;
+    padding: 6px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,63 +56,68 @@ body {
 .brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .brand-badge {
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
     background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-    border-radius: 10px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    box-shadow: 0 0 16px rgba(14, 165, 233, 0.4);
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
+    flex-shrink: 0;
 }
 
 .brand-titles h1 {
-    font-size: 1.18rem;
+    font-size: 0.98rem;
     font-weight: 800;
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    line-height: 1.2;
 }
 
 .version-tag {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-family: var(--font-mono);
     background: rgba(6, 182, 212, 0.2);
     color: var(--cyan-accent);
     border: 1px solid var(--cyan-accent);
-    padding: 1px 6px;
+    padding: 1px 5px;
     border-radius: 4px;
 }
 
 .brand-titles p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
+    line-height: 1.2;
 }
 
 .header-tools {
     display: flex;
-    gap: 10px;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 .btn-tool {
     background: #1e293b;
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
-    padding: 7px 14px;
-    border-radius: 8px;
-    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .btn-tool:hover {
@@ -123,48 +128,60 @@ body {
 .btn-tool.btn-highlight {
     background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
     border-color: #38bdf8;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
 }
 
 /* Control & Student Bar */
 .session-bar {
     background: #090e1a;
     border-bottom: 1px solid var(--border-subtle);
-    padding: 10px 28px;
+    padding: 4px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 8px;
+    min-height: 38px;
 }
 
 .student-meta {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .meta-field {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
 
 .meta-field label {
-    font-size: 0.82rem;
+    font-size: 0.74rem;
     font-weight: 600;
     color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 .meta-field input {
     background: #131d31;
     border: 1px solid var(--border-subtle);
     color: #fff;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.86rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.78rem;
     outline: none;
     transition: all 0.2s;
+}
+
+#studentName {
+    width: 150px;
+    max-width: 100%;
+}
+
+#studentGroup {
+    width: 75px;
 }
 
 .meta-field input:focus {
@@ -172,46 +189,67 @@ body {
     box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
 }
 
+.cable-presets-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.preset-label {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
 .standard-tabs {
     display: flex;
     background: #131d31;
     border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 3px;
-    gap: 4px;
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+    flex-wrap: wrap;
 }
 
 .tab-btn {
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: 6px 16px;
-    font-size: 0.84rem;
+    padding: 3px 9px;
+    font-size: 0.74rem;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .tab-btn.active {
     background: #2563eb;
     color: #fff;
-    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.5);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.5);
 }
 
 /* Layout Grid */
 .simulator-workspace {
     flex: 1;
     display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 22px;
-    padding: 22px 28px;
-    max-width: 1600px;
+    grid-template-columns: 1fr 320px;
+    gap: 12px;
+    padding: 8px 16px;
+    max-width: 1650px;
     margin: 0 auto;
     width: 100%;
 }
 
-@media (max-width: 1160px) {
+@media (max-width: 1120px) {
     .simulator-workspace {
         grid-template-columns: 1fr;
     }
@@ -221,11 +259,11 @@ body {
 .panel-workbench {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 22px;
+    border-radius: 10px;
+    padding: 10px 14px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
 .workbench-toolbar {
@@ -233,27 +271,29 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border-subtle);
-    padding-bottom: 14px;
-    margin-bottom: 20px;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 6px;
 }
 
 .toolbar-title h2 {
-    font-size: 1.22rem;
+    font-size: 0.98rem;
     font-weight: 800;
     color: #fff;
+    line-height: 1.2;
 }
 
 .toolbar-title p {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     color: var(--text-secondary);
+    line-height: 1.2;
 }
 
 .toolbar-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     flex-wrap: wrap;
 }
 
@@ -261,14 +301,14 @@ body {
     background: #1e293b;
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 0.84rem;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.74rem;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     white-space: nowrap;
     transition: all 0.2s;
 }
@@ -289,7 +329,9 @@ body {
     border-color: #f59e0b;
     color: #fff;
     font-weight: 800;
-    box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+    padding: 4px 10px;
+    font-size: 0.76rem;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
 }
 
 .btn-action.btn-crimp-tool:hover {
@@ -313,8 +355,8 @@ body {
 }
 
 @keyframes crimpPulse {
-    from { box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); }
-    to { box-shadow: 0 0 26px rgba(245, 158, 11, 0.9); }
+    from { box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+    to { box-shadow: 0 0 22px rgba(245, 158, 11, 0.9); }
 }
 
 /* ==========================================================================
@@ -324,24 +366,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 0;
+    padding: 2px 0 4px 0;
 }
 
 /* Chassis */
 .rj45-chassis {
-    width: 500px;
-    background: rgba(30, 41, 59, 0.7);
-    border: 2px solid rgba(148, 163, 184, 0.4);
-    border-radius: 12px;
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(30, 41, 59, 0.75);
+    border: 2px solid rgba(148, 163, 184, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     position: relative;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .rj45-chassis.crimped {
-    transform: translateY(6px);
-    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
+    transform: translateY(4px);
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.35);
 }
 
 /* Top Gold Contact Blades */
@@ -350,34 +393,34 @@ body {
     grid-template-columns: repeat(8, 1fr);
     background: #090e1a;
     border-bottom: 2px solid rgba(148, 163, 184, 0.3);
-    padding: 10px 14px;
-    gap: 8px;
+    padding: 6px 10px;
+    gap: 6px;
 }
 
 .gold-pin {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
 }
 
 .pin-blade {
     width: 100%;
-    height: 18px;
+    height: 13px;
     background: linear-gradient(180deg, #fef08a 0%, #eab308 50%, #a16207 100%);
     border-radius: 2px;
-    box-shadow: 0 0 8px rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 6px rgba(234, 179, 8, 0.5);
     transition: all 0.25s ease;
 }
 
 .gold-pin.pressed .pin-blade {
-    transform: translateY(5px);
+    transform: translateY(4px);
     background: linear-gradient(180deg, #ca8a04 0%, #854d0e 100%);
-    box-shadow: 0 0 14px #eab308;
+    box-shadow: 0 0 12px #eab308;
 }
 
 .pin-num {
-    font-size: 0.74rem;
+    font-size: 0.68rem;
     font-family: var(--font-mono);
     color: var(--text-muted);
     font-weight: 700;
@@ -385,22 +428,22 @@ body {
 
 /* Polycarbonate Shell */
 .polycarbonate-shell {
-    padding: 10px 14px 14px 14px;
+    padding: 6px 10px 6px 10px;
     background: rgba(15, 23, 42, 0.65);
 }
 
 .plug-latch-arm {
     background: rgba(15, 23, 42, 0.6);
     border-bottom: 1px dashed rgba(148, 163, 184, 0.25);
-    padding: 6px;
+    padding: 3px;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .latch-title {
-    font-size: 0.76rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     color: #94a3b8;
     text-transform: uppercase;
 }
@@ -409,15 +452,15 @@ body {
 .channels-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 6px;
 }
 
 .slot-channel {
-    height: 140px;
+    height: 105px;
     background: rgba(11, 18, 32, 0.9);
     border: 1px solid rgba(71, 85, 105, 0.8);
-    border-radius: 6px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -441,13 +484,13 @@ body {
     border-color: #38bdf8 !important;
     background: rgba(56, 189, 248, 0.25) !important;
     transform: scale(1.04);
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
 }
 
 .slot-hint-bar {
     width: 100%;
-    height: 8px;
-    border-radius: 4px 4px 0 0;
+    height: 6px;
+    border-radius: 3px 3px 0 0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -459,7 +502,7 @@ body {
 }
 
 .pin-guide-num {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-family: var(--font-mono);
     color: #334155;
     font-weight: 700;
@@ -477,43 +520,43 @@ body {
 }
 
 @keyframes wireSlide {
-    from { transform: translateY(35px); opacity: 0; }
+    from { transform: translateY(25px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
 .wire-copper-tip {
-    width: 8px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%);
     border-radius: 1px;
-    margin-top: 4px;
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
+    margin-top: 2px;
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.8);
 }
 
 .wire-stem {
-    width: 18px;
+    width: 15px;
     flex: 1;
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     box-shadow: inset 2px 0 3px rgba(255, 255, 255, 0.35), inset -2px 0 3px rgba(0, 0, 0, 0.6);
 }
 
 .wire-label {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-family: var(--font-mono);
     font-weight: 800;
     color: #fff;
     text-shadow: 0 1px 3px #000;
-    margin: 2px 0;
+    margin: 1px 0;
 }
 
 .status-badge {
     position: absolute;
-    bottom: 4px;
-    width: 18px;
-    height: 18px;
+    bottom: 3px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 900;
     display: flex;
     align-items: center;
@@ -534,7 +577,7 @@ body {
 .strain-relief-wedge {
     background: #1e293b;
     border-top: 1px solid rgba(148, 163, 184, 0.3);
-    padding: 6px;
+    padding: 3px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -545,7 +588,7 @@ body {
 }
 
 .wedge-text {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     color: #64748b;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -556,27 +599,28 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 12px 0 20px 0;
+    margin: 4px 0 8px 0;
 }
 
 .utp-cable-body {
-    width: 460px;
-    height: 40px;
+    width: 440px;
+    max-width: 95%;
+    height: 26px;
     background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, #172554 100%);
     border: 1px solid rgba(59, 130, 246, 0.5);
-    border-radius: 8px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .cable-print {
-    font-size: 0.74rem;
+    font-size: 0.66rem;
     font-family: var(--font-mono);
     color: #93c5fd;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 }
 
 /* Available Wire Tray */
@@ -584,43 +628,43 @@ body {
     width: 100%;
     background: #0b1220;
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 16px 20px;
+    border-radius: 10px;
+    padding: 8px 12px;
 }
 
 .tray-top-bar {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 14px;
+    margin-bottom: 6px;
 }
 
 .tray-heading {
-    font-size: 0.86rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--text-secondary);
 }
 
 .tray-stats {
-    font-size: 0.84rem;
+    font-size: 0.78rem;
     font-family: var(--font-mono);
     color: var(--cyan-accent);
 }
 
 .tray-wire-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-    gap: 12px;
-    min-height: 80px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    min-height: 64px;
 }
 
 .wire-token {
     background: #1e293b;
     border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 9px 12px;
+    border-radius: 6px;
+    padding: 4px 8px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     cursor: grab;
     transition: all 0.2s ease;
     user-select: none;
@@ -635,19 +679,19 @@ body {
     background: #2b394f;
     border-color: var(--cyan-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .wire-token.selected {
     border-color: var(--cyan-accent);
-    box-shadow: 0 0 16px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
     background: rgba(6, 182, 212, 0.18);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .token-copper {
-    width: 6px;
-    height: 12px;
+    width: 5px;
+    height: 8px;
     background: linear-gradient(180deg, #fbbf24 0%, #d97706 65%, #92400e 100%);
     border-radius: 1px;
     box-shadow: 0 0 4px rgba(245, 158, 11, 0.6);
@@ -655,16 +699,16 @@ body {
 }
 
 .token-strand {
-    width: 20px;
-    height: 38px;
-    border-radius: 4px;
+    width: 14px;
+    height: 24px;
+    border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     box-shadow: inset 1px 0 2px rgba(255, 255, 255, 0.45), inset -1px 0 2px rgba(0, 0, 0, 0.6);
     flex-shrink: 0;
 }
 
 .token-title {
-    font-size: 0.82rem;
+    font-size: 0.74rem;
     font-weight: 700;
     color: #f1f5f9;
     white-space: nowrap;
@@ -675,20 +719,20 @@ body {
 .tray-complete-banner {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 22px;
+    padding: 12px;
     background: rgba(16, 185, 129, 0.1);
-    border: 2px dashed #10b981;
-    border-radius: 10px;
+    border: 1.5px dashed #10b981;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .badge-done {
-    font-size: 1rem;
+    font-size: 0.88rem;
     font-weight: 800;
     color: #10b981;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 }
 
 .banner-sub {
@@ -730,60 +774,61 @@ body {
 .panel-tester {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 22px;
+    border-radius: 10px;
+    padding: 10px 12px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    gap: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
 .tester-brand-block h3 {
-    font-size: 1.15rem;
+    font-size: 0.94rem;
     font-weight: 800;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .tester-brand-block p {
-    font-size: 0.78rem;
+    font-size: 0.68rem;
     color: var(--text-secondary);
+    line-height: 1.2;
 }
 
 .tester-two-chassis {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 8px;
     background: #0a0f1d;
-    padding: 16px;
-    border-radius: 12px;
-    border: 2px solid #1e293b;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1.5px solid #1e293b;
 }
 
 .tester-pod {
     background: #1e293b;
     border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 12px 10px;
+    border-radius: 6px;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .pod-title {
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     font-weight: 900;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: #94a3b8;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .led-rack {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     width: 100%;
 }
 
@@ -792,20 +837,21 @@ body {
     align-items: center;
     justify-content: space-between;
     background: #0f172a;
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 2px 7px;
+    height: 20px;
+    border-radius: 3px;
 }
 
 .led-num {
-    font-size: 0.76rem;
+    font-size: 0.7rem;
     font-family: var(--font-mono);
     font-weight: 700;
     color: #e2e8f0;
 }
 
 .led-diode {
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background: #23334d;
     border: 1px solid #334155;
@@ -816,61 +862,61 @@ body {
 .led-diode.glow-green {
     background: #10b981;
     border-color: #6ee7b7;
-    box-shadow: 0 0 10px #10b981, 0 0 22px #10b981;
+    box-shadow: 0 0 8px #10b981, 0 0 18px #10b981;
 }
 
 .led-diode.glow-red {
     background: #ef4444;
     border-color: #fca5a5;
-    box-shadow: 0 0 10px #ef4444, 0 0 22px #ef4444;
+    box-shadow: 0 0 8px #ef4444, 0 0 18px #ef4444;
 }
 
 /* Diagnostic Screen */
 .diagnostic-terminal {
     background: #022c22;
-    border: 2px solid #059669;
-    border-radius: 8px;
-    padding: 14px;
+    border: 1.5px solid #059669;
+    border-radius: 6px;
+    padding: 7px 10px;
     color: #a7f3d0;
     font-family: var(--font-mono);
-    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.7);
 }
 
 .term-headline {
-    font-size: 0.92rem;
+    font-size: 0.8rem;
     font-weight: 800;
     color: #f0fdf4;
     border-bottom: 1px solid #059669;
-    padding-bottom: 6px;
-    margin-bottom: 8px;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
 }
 
 .term-speed {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #34d399;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
 }
 
 .term-feed {
-    font-size: 0.76rem;
+    font-size: 0.68rem;
     color: #6ee7b7;
-    line-height: 1.45;
+    line-height: 1.35;
 }
 
 .btn-trigger-test {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     border: none;
     color: #fff;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 0.98rem;
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 0.86rem;
     font-weight: 800;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+    gap: 6px;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
     transition: all 0.2s;
 }
 
@@ -1047,42 +1093,47 @@ body {
 .mission-bar {
     background: #0d1629;
     border-bottom: 1px solid var(--border-subtle);
-    padding: 8px 28px;
+    padding: 4px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     flex-wrap: wrap;
+    min-height: 36px;
 }
 
 .mission-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex: 1;
+    min-width: 260px;
 }
 
 .mission-badge {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: #000;
     font-weight: 900;
-    font-size: 0.72rem;
-    padding: 3px 8px;
+    font-size: 0.7rem;
+    padding: 2px 7px;
     border-radius: 4px;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .mission-desc {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     color: #cbd5e1;
+    line-height: 1.3;
 }
 
 .select-mission {
     background: #1e293b;
     border: 1px solid var(--border-subtle);
     color: var(--text-primary);
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 6px;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
     outline: none;
     cursor: pointer;
@@ -1098,8 +1149,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
-    gap: 12px;
+    margin-bottom: 6px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -1107,24 +1158,25 @@ body {
     display: flex;
     background: #0b1220;
     border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 3px;
-    gap: 4px;
+    border-radius: 7px;
+    padding: 2px;
+    gap: 3px;
 }
 
 .btn-end-tab {
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: 7px 16px;
-    font-size: 0.84rem;
+    padding: 4px 11px;
+    font-size: 0.76rem;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 
 .btn-end-tab:hover {
@@ -1135,16 +1187,16 @@ body {
 .btn-end-tab.active {
     background: #1e293b;
     color: var(--cyan-accent);
-    box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
     border: 1px solid rgba(6, 182, 212, 0.5);
 }
 
 .end-badge {
     background: #0f172a;
     color: var(--text-muted);
-    font-size: 0.72rem;
-    padding: 2px 6px;
-    border-radius: 4px;
+    font-size: 0.68rem;
+    padding: 1px 5px;
+    border-radius: 3px;
     font-family: var(--font-mono);
     border: 1px solid var(--border-subtle);
 }
@@ -1159,41 +1211,77 @@ body {
     display: flex;
     background: #0b1220;
     border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 3px;
-    gap: 4px;
+    border-radius: 7px;
+    padding: 2px;
+    gap: 3px;
 }
 
 .btn-mode-tab {
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: 7px 14px;
-    font-size: 0.82rem;
+    padding: 4px 10px;
+    font-size: 0.76rem;
     font-weight: 700;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 
 .btn-mode-tab.active {
     background: #2563eb;
     color: #fff;
-    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
 }
 
 /* Connector Identity Banner */
 .connector-identity-banner {
-    width: 500px;
+    width: 100%;
+    max-width: 480px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #0d1527;
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 8px 14px;
-    margin-bottom: 10px;
-    font-size: 0.78rem;
+    background: #090f1d;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 7px;
+    padding: 4px 8px;
+    margin: 2px auto 6px auto;
+    gap: 5px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+.conn-id-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    word-break: keep-all;
+    hyphens: none;
+    user-select: none;
+}
+
+.conn-id-icon {
+    font-size: 0.76rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.conn-id-text {
+    white-space: nowrap;
+    word-break: keep-all;
+    hyphens: none;
+}
+
+.conn-id-text strong {
+    color: #fff;
+    white-space: nowrap;
+    word-break: keep-all;
 }
 
 .conn-id-title strong {
@@ -1205,11 +1293,15 @@ body {
 }
 
 .conn-id-status.crimp-yes {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.14);
     color: #10b981;
     font-weight: 700;
 }
 
 .conn-id-status.crimp-no {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.12);
     color: #f59e0b;
     font-weight: 700;
 }
@@ -1561,4 +1653,381 @@ body {
     filter: brightness(1.2);
     box-shadow: 0 0 22px rgba(220, 38, 38, 0.75) !important;
 }
+
+/* ==========================================================================
+   MULTI-DISPLAY ADAPTIVE SYSTEM (2K Monitor, Laptops, Compact & Split View)
+   ========================================================================== */
+
+/* 1. Large 2K / 4K Displays (Rich expansive view for high-res monitors) */
+@media (min-width: 1900px) and (min-height: 960px) {
+    .app-header {
+        padding: 10px 28px;
+    }
+    .brand-badge {
+        width: 38px;
+        height: 38px;
+        font-size: 19px;
+    }
+    .brand-titles h1 {
+        font-size: 1.15rem;
+    }
+    .brand-titles p {
+        font-size: 0.78rem;
+    }
+    .btn-tool {
+        padding: 6px 14px;
+        font-size: 0.82rem;
+    }
+    .session-bar {
+        padding: 8px 28px;
+        min-height: 44px;
+    }
+    #studentName {
+        width: 180px;
+    }
+    #studentGroup {
+        width: 90px;
+    }
+    .tab-btn {
+        padding: 5px 12px;
+        font-size: 0.8rem;
+    }
+    .mission-bar {
+        padding: 8px 28px;
+    }
+    .mission-badge {
+        font-size: 0.76rem;
+        padding: 3px 9px;
+    }
+    .mission-desc {
+        font-size: 0.86rem;
+    }
+    .select-mission {
+        padding: 6px 14px;
+        font-size: 0.84rem;
+    }
+    .simulator-workspace {
+        grid-template-columns: 1fr 360px;
+        gap: 18px;
+        padding: 14px 28px;
+        max-width: 1750px;
+    }
+    .panel-workbench {
+        padding: 16px 22px;
+        border-radius: 14px;
+    }
+    .toolbar-title h2 {
+        font-size: 1.15rem;
+    }
+    .btn-action {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    .btn-action.btn-crimp-tool {
+        padding: 6px 16px;
+        font-size: 0.84rem;
+    }
+    .dual-end-navbar {
+        margin-bottom: 12px;
+    }
+    .btn-end-tab {
+        padding: 7px 16px;
+        font-size: 0.84rem;
+    }
+    .btn-mode-tab {
+        padding: 7px 14px;
+        font-size: 0.82rem;
+    }
+    .connector-identity-banner {
+        max-width: 530px;
+        padding: 6px 12px;
+        margin: 4px auto 10px auto;
+    }
+    .conn-id-item {
+        padding: 4px 10px;
+        font-size: 0.78rem;
+    }
+    .rj45-chassis {
+        max-width: 530px;
+        border-radius: 12px;
+    }
+    .gold-contacts-block {
+        padding: 9px 14px;
+        gap: 8px;
+    }
+    .pin-blade {
+        height: 16px;
+    }
+    .pin-num {
+        font-size: 0.76rem;
+    }
+    .polycarbonate-shell {
+        padding: 10px 14px 10px 14px;
+    }
+    .plug-latch-arm {
+        padding: 5px;
+        margin-bottom: 8px;
+    }
+    .latch-title {
+        font-size: 0.76rem;
+    }
+    .channels-grid {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    .slot-channel {
+        height: 130px;
+    }
+    .wire-stem {
+        width: 18px;
+    }
+    .wire-copper-tip {
+        width: 8px;
+        height: 9px;
+    }
+    .wire-label {
+        font-size: 0.68rem;
+    }
+    .status-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
+    }
+    .cable-entry-box {
+        margin: 8px 0 14px 0;
+    }
+    .utp-cable-body {
+        width: 480px;
+        height: 34px;
+    }
+    .cable-print {
+        font-size: 0.72rem;
+    }
+    .tray-container {
+        padding: 14px 18px;
+        border-radius: 12px;
+    }
+    .tray-top-bar {
+        margin-bottom: 10px;
+    }
+    .tray-heading {
+        font-size: 0.86rem;
+    }
+    .tray-stats {
+        font-size: 0.84rem;
+    }
+    .tray-wire-grid {
+        gap: 10px;
+        min-height: 76px;
+    }
+    .wire-token {
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    .token-strand {
+        width: 18px;
+        height: 32px;
+    }
+    .token-title {
+        font-size: 0.82rem;
+    }
+    .panel-tester {
+        padding: 18px 20px;
+        gap: 14px;
+        border-radius: 14px;
+    }
+    .tester-brand-block h3 {
+        font-size: 1.1rem;
+    }
+    .tester-brand-block p {
+        font-size: 0.76rem;
+    }
+    .tester-two-chassis {
+        padding: 12px;
+        gap: 12px;
+    }
+    .tester-pod {
+        padding: 10px 8px;
+    }
+    .pod-title {
+        font-size: 0.72rem;
+        margin-bottom: 8px;
+    }
+    .led-rack {
+        gap: 6px;
+    }
+    .led-slot {
+        height: 24px;
+        padding: 3px 10px;
+    }
+    .led-diode {
+        width: 13px;
+        height: 13px;
+    }
+    .diagnostic-terminal {
+        padding: 12px 14px;
+    }
+    .term-headline {
+        font-size: 0.88rem;
+    }
+    .term-speed {
+        font-size: 0.78rem;
+    }
+    .term-feed {
+        font-size: 0.74rem;
+    }
+    .btn-trigger-test {
+        padding: 13px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+/* 2. Extra-Compact Mode for Small Laptops (Height <= 750px or 1366x768 screens) */
+@media (max-height: 750px) {
+    .app-header {
+        padding: 4px 14px;
+    }
+    .brand-titles h1 {
+        font-size: 0.92rem;
+    }
+    .session-bar {
+        padding: 3px 14px;
+        min-height: 32px;
+    }
+    .mission-bar {
+        padding: 3px 14px;
+        min-height: 30px;
+    }
+    .mission-desc {
+        font-size: 0.74rem;
+    }
+    .simulator-workspace {
+        padding: 4px 10px;
+        gap: 8px;
+    }
+    .panel-workbench {
+        padding: 6px 10px;
+    }
+    .workbench-toolbar {
+        padding-bottom: 4px;
+        margin-bottom: 4px;
+    }
+    .dual-end-navbar {
+        margin-bottom: 4px;
+    }
+    .btn-end-tab {
+        padding: 3px 8px;
+        font-size: 0.72rem;
+    }
+    .btn-mode-tab {
+        padding: 3px 8px;
+        font-size: 0.72rem;
+    }
+    .connector-identity-banner {
+        padding: 3px 6px;
+        margin: 2px auto 4px auto;
+    }
+    .conn-id-item {
+        font-size: 0.68rem;
+        padding: 2px 5px;
+    }
+    .slot-channel {
+        height: 92px;
+    }
+    .cable-entry-box {
+        margin: 3px 0 5px 0;
+    }
+    .utp-cable-body {
+        height: 22px;
+    }
+    .cable-print {
+        font-size: 0.62rem;
+    }
+    .tray-container {
+        padding: 6px 10px;
+    }
+    .tray-top-bar {
+        margin-bottom: 4px;
+    }
+    .tray-wire-grid {
+        gap: 5px;
+        min-height: 52px;
+    }
+    .wire-token {
+        padding: 3px 6px;
+    }
+    .token-strand {
+        width: 12px;
+        height: 20px;
+    }
+    .token-title {
+        font-size: 0.7rem;
+    }
+    .panel-tester {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+    .led-slot {
+        height: 18px;
+        padding: 1px 6px;
+    }
+    .diagnostic-terminal {
+        padding: 5px 8px;
+    }
+    .term-headline {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+        padding-bottom: 2px;
+    }
+    .term-feed {
+        font-size: 0.65rem;
+        line-height: 1.25;
+    }
+    .btn-trigger-test {
+        padding: 7px 10px;
+        font-size: 0.82rem;
+    }
+}
+
+/* 3. Narrow Screens / Window Resizing / Split-screen (Width <= 1120px) */
+@media (max-width: 1120px) {
+    .simulator-workspace {
+        grid-template-columns: 1fr;
+    }
+    .panel-tester {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .session-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    .student-meta {
+        justify-content: flex-start;
+    }
+    .cable-presets-bar {
+        justify-content: flex-start;
+    }
+    .toolbar-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .tray-wire-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .header-tools {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
 
