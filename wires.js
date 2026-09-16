@@ -483,17 +483,17 @@ class WireManager {
                 <!-- VIEW TABS (Crimp vs Wiremap) & END SWITCHER -->
                 <div class="dual-end-navbar">
                     <div class="end-selector-group">
-                        <button class="btn-end-tab ${this.activeEnd === 'A' ? 'active' : ''}" data-end-switch="A">
-                            🔌 Кінець А: <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
+                        <button class="btn-end-tab ${this.activeEnd === 'A' ? 'active' : ''}" data-end-switch="A" title="Перемкнутися на Кінець А (Master)">
+                            🔌 Кінець А <span class="end-role-label">(Master):</span> <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
                         </button>
-                        <button class="btn-end-tab ${this.activeEnd === 'B' ? 'active' : ''}" data-end-switch="B">
-                            🔌 Кінець Б: <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
+                        <button class="btn-end-tab ${this.activeEnd === 'B' ? 'active' : ''}" data-end-switch="B" title="Перемкнутися на Кінець Б (Remote)">
+                            🔌 Кінець Б <span class="end-role-label">(Remote):</span> <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
                         </button>
                     </div>
 
                     <div class="mode-view-toggle">
-                        <button class="btn-mode-tab active" data-view-tab="crimp">🛠️ Монтаж</button>
-                        <button class="btn-mode-tab" data-view-tab="wiremap">🔀 Схема Wiremap</button>
+                        <button class="btn-mode-tab active" data-view-tab="crimp" title="Монтаж проводів у роз'єм RJ-45">🛠️ Монтаж конектора</button>
+                        <button class="btn-mode-tab" data-view-tab="wiremap" title="Інтерактивна схема трасування витої пари">🔀 Схема трасування кабелю</button>
                     </div>
                 </div>
 
@@ -637,17 +637,17 @@ class WireManager {
                 <!-- Dual End Header -->
                 <div class="dual-end-navbar">
                     <div class="end-selector-group">
-                        <button class="btn-end-tab" data-end-switch="A">
-                            🔌 Кінець А: <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
+                        <button class="btn-end-tab" data-end-switch="A" title="Перемкнутися на Кінець А (Master)">
+                            🔌 Кінець А <span class="end-role-label">(Master):</span> <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
                         </button>
-                        <button class="btn-end-tab" data-end-switch="B">
-                            🔌 Кінець Б: <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
+                        <button class="btn-end-tab" data-end-switch="B" title="Перемкнутися на Кінець Б (Remote)">
+                            🔌 Кінець Б <span class="end-role-label">(Remote):</span> <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
                         </button>
                     </div>
 
                     <div class="mode-view-toggle">
-                        <button class="btn-mode-tab" data-view-tab="crimp">🛠️ Монтаж</button>
-                        <button class="btn-mode-tab active" data-view-tab="wiremap">🔀 Схема Wiremap</button>
+                        <button class="btn-mode-tab" data-view-tab="crimp" title="Монтаж проводів у роз'єм RJ-45">🛠️ Монтаж конектора</button>
+                        <button class="btn-mode-tab active" data-view-tab="wiremap" title="Інтерактивна схема трасування витої пари">🔀 Схема трасування кабелю</button>
                     </div>
                 </div>
 

@@ -1174,12 +1174,12 @@ body {
 /* Dual-End Navigation Bar */
 .dual-end-navbar {
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto 6px auto;
+    max-width: 100%;
+    margin: 0 0 8px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     flex-wrap: wrap;
     box-sizing: border-box;
 }
@@ -1190,16 +1190,18 @@ body {
     border: 1px solid var(--border-subtle);
     border-radius: 7px;
     padding: 2px;
-    gap: 2px;
+    gap: 3px;
     box-sizing: border-box;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 
 .btn-end-tab {
     background: transparent;
     border: 1px solid transparent;
     color: var(--text-secondary);
-    padding: 3px 8px;
-    font-size: 0.73rem;
+    padding: 4px 10px;
+    font-size: 0.76rem;
     font-weight: 700;
     border-radius: 5px;
     cursor: pointer;
@@ -1221,6 +1223,11 @@ body {
     color: var(--cyan-accent);
     box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
     border-color: rgba(6, 182, 212, 0.5);
+}
+
+.end-role-label {
+    opacity: 0.85;
+    font-weight: 600;
 }
 
 .end-badge {
@@ -1245,22 +1252,29 @@ body {
     border: 1px solid var(--border-subtle);
     border-radius: 7px;
     padding: 2px;
-    gap: 2px;
+    gap: 3px;
     box-sizing: border-box;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 
 .btn-mode-tab {
     background: transparent;
     border: 1px solid transparent;
     color: var(--text-secondary);
-    padding: 3px 8px;
-    font-size: 0.73rem;
+    padding: 4px 11px;
+    font-size: 0.76rem;
     font-weight: 700;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
     box-sizing: border-box;
+}
+
+.btn-mode-tab:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .btn-mode-tab.active {
@@ -1766,15 +1780,16 @@ body {
         font-size: 0.84rem;
     }
     .dual-end-navbar {
-        max-width: 560px;
-        margin: 0 auto 12px auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 12px 0;
     }
     .btn-end-tab {
-        padding: 7px 16px;
-        font-size: 0.84rem;
+        padding: 6px 14px;
+        font-size: 0.82rem;
     }
     .btn-mode-tab {
-        padding: 7px 14px;
+        padding: 6px 14px;
         font-size: 0.82rem;
     }
     .connector-identity-banner {
@@ -1955,16 +1970,17 @@ body {
         margin-bottom: 4px;
     }
     .dual-end-navbar {
-        max-width: 480px;
-        margin: 0 auto 4px auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 4px 0;
     }
     .btn-end-tab {
-        padding: 3px 8px;
-        font-size: 0.72rem;
+        padding: 3px 7px;
+        font-size: 0.71rem;
     }
     .btn-mode-tab {
-        padding: 3px 8px;
-        font-size: 0.72rem;
+        padding: 3px 7px;
+        font-size: 0.71rem;
     }
     .connector-identity-banner {
         max-width: 480px;
@@ -2061,8 +2077,15 @@ body {
     .cable-presets-bar {
         justify-content: flex-start;
     }
-    .toolbar-actions {
-        flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+    .end-role-label {
+        display: none;
+    }
+    .btn-end-tab, .btn-mode-tab {
+        padding: 3px 8px;
+        font-size: 0.72rem;
     }
 }
 
