@@ -484,16 +484,16 @@ class WireManager {
                 <div class="dual-end-navbar">
                     <div class="end-selector-group">
                         <button class="btn-end-tab ${this.activeEnd === 'A' ? 'active' : ''}" data-end-switch="A">
-                            🔌 Кінець А (Master): <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
+                            🔌 Кінець А: <span class="end-badge ${this.ends.A.isCrimped ? 'crimped' : ''}">${aStatus}</span>
                         </button>
                         <button class="btn-end-tab ${this.activeEnd === 'B' ? 'active' : ''}" data-end-switch="B">
-                            🔌 Кінець Б (Remote): <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
+                            🔌 Кінець Б: <span class="end-badge ${this.ends.B.isCrimped ? 'crimped' : ''}">${bStatus}</span>
                         </button>
                     </div>
 
                     <div class="mode-view-toggle">
-                        <button class="btn-mode-tab active" data-view-tab="crimp">🛠️ Монтаж конектора</button>
-                        <button class="btn-mode-tab" data-view-tab="wiremap">🔀 Схема трасування кабелю</button>
+                        <button class="btn-mode-tab active" data-view-tab="crimp">🛠️ Монтаж</button>
+                        <button class="btn-mode-tab" data-view-tab="wiremap">🔀 Схема Wiremap</button>
                     </div>
                 </div>
 
@@ -646,8 +646,8 @@ class WireManager {
                     </div>
 
                     <div class="mode-view-toggle">
-                        <button class="btn-mode-tab" data-view-tab="crimp">🛠️ Монтаж конектора</button>
-                        <button class="btn-mode-tab active" data-view-tab="wiremap">🔀 Схема трасування кабелю</button>
+                        <button class="btn-mode-tab" data-view-tab="crimp">🛠️ Монтаж</button>
+                        <button class="btn-mode-tab active" data-view-tab="wiremap">🔀 Схема Wiremap</button>
                     </div>
                 </div>
 
